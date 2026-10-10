@@ -1,0 +1,122 @@
+; Crimson Desert Multiplayer v0.2.0 - cooperativo / co-op - INVITADO / GUEST
+; Cada comentario va en espanol y despues en ingles. / Each comment is in Spanish, then in English.
+[general]
+; Tu nombre (lo ve el otro jugador)
+; Your name (the other player sees it)
+player_name=Jugador
+startup_delay_ms=0
+
+[net]
+enabled=1
+; Conexion por Steam, solo con amigos de Steam (no abre puertos ni muestra tu IP)
+; Connection through Steam, with Steam friends only (no ports opened, your IP is not shown)
+transport=steam
+; host = anfitrion (espera a su amigo); guest = invitado (se conecta al anfitrion)
+; host = waits for their friend; guest = connects to the host
+role=guest
+send_rate_hz=20
+
+[steam]
+; Invitado: SteamID64 del anfitrion (17 cifras). Vacio = el unico amigo que este jugando a Crimson Desert ahora.
+; Anfitrion: vacio = acepta a cualquier amigo que este jugando.
+; Guest: the host's SteamID64 (17 digits). Empty = the only friend playing Crimson Desert right now.
+; Host: empty = accepts any friend who is playing.
+peer_steamid=
+
+[overlay]
+; Marcador con el nombre y la vida del otro jugador sobre su cabeza
+; Marker with the other player's name and health above their head
+enabled=1
+self_marker=0
+; Idioma de los textos del panel: en = ingles, es = espanol
+; Language of the panel's texts: en = English, es = Spanish
+language=en
+
+[sniffer]
+; Necesario para el cooperativo (lee y envia los mensajes internos del juego)
+; Needed for co-op (reads and sends the game's internal messages)
+enabled=1
+; 1 = ademas los graba en ficheros cdmp_packets_* (50-100 MB por sesion), para informar de un fallo
+; 1 = also records them to cdmp_packets_* files (50-100 MB per session), to report a problem
+record=0
+
+[coop]
+; 1 = el otro jugador aparece como un personaje en tu mundo
+; 1 = the other player appears as a character in your world
+enabled=1
+; Retardo de reproduccion en ms (mas = escaladas mas suaves, pero mas retraso)
+; Playback delay in ms (more = smoother climbing, but more delay)
+delay_ms=200
+; Desplazamiento lateral del otro jugador en metros (0 = posicion exacta)
+; Sideways offset of the other player in metres (0 = exact position)
+offset_m=0
+; El otro jugador se cambia el equipo como en su partida
+; The other player's gear changes as in their game
+equip=1
+; Experimental: su caballo (al bajarse, su personaje se recarga en 1-2 s)
+; Experimental: their horse (when they get off, their character reloads in 1-2 s)
+horse=1
+; Dano "espejo" antiguo: apagado, ahora los enemigos se comparten (ver abajo)
+; Old "mirror" damage: off, enemies are shared now (see below)
+damage=0
+; El otro jugador en el minimapa y el mapa (M): flecha con borde
+; The other player on the minimap and the map (M): an outlined arrow
+minimap_icon=0x124
+; Marcador en el mapa cuando su personaje no esta cargado (por ejemplo, muy lejos)
+; Map marker when their character is not loaded (for example, far away)
+map_pin=1
+; ENEMIGOS COMPARTIDOS (experimental). El anfitrion manda: ves copias de SUS enemigos.
+; El invitado NO pulsa Ctrl+F7. Tus propios enemigos no atacan a la copia del anfitrion.
+; SHARED ENEMIES (experimental). The host leads: you see copies of THEIR enemies.
+; The guest does NOT press Ctrl+F7. Your own enemies do not attack the host's copy.
+enemies_target_copy=0
+; Tus golpes a las copias de los enemigos del anfitrion le llegan
+; Your blows to the copies of the host's enemies reach the host's enemies
+guest_hits=1
+guest_hit_stagger=1
+; MUY EXPERIMENTAL: botin de los enemigos del anfitrion que ayudas a matar (crea y mata una copia en TU
+; partida para darte su botin; a veces tu servidor la retira antes de que la saquees). 0 = apagado.
+; VERY EXPERIMENTAL: loot from the host's enemies you help kill (spawns and kills a copy in YOUR game to
+; give you its loot; sometimes your server removes it before you loot it). 0 = off.
+guest_loot=0
+; Tu personaje reacciona (tambaleo, derribo) a los golpes que los enemigos del otro dan a tu copia en su
+; mundo, y puede morir por ellos (muerte normal, reapareces como siempre)
+; Your character reacts (stagger, knock-down) to the blows the other's enemies give your copy in their
+; world, and can die from them (a normal death, you respawn as usual)
+player_hit_react=1
+player_hit_lethal=1
+; (Solo cuenta en el anfitrion: cuantos enemigos a la vez atacan a la copia del otro)
+; (Only used on the host: how many enemies at a time attack the other's copy)
+copy_attack_slots=0
+; Hora del dia: el invitado toma la del anfitrion (2 = tomar la del otro)
+; Time of day: the guest takes the host's (2 = take the other's)
+time_sync=2
+; ZONA DE ENEMIGOS (experimental). A menos de 150 m del anfitrion se ocultan TUS enemigos hostiles y
+; ves solo las copias de los del anfitrion; a mas de 250 m vuelven los tuyos.
+; dry = solo apunta en cdmp.log lo que ocultaria (no cambia nada); 1 = activado; 0 = apagado.
+; ENEMY ZONE (experimental). Within 150 m of the host YOUR own hostile enemies are hidden and you
+; only see the copies of the host's; beyond 250 m yours come back.
+; dry = only writes to cdmp.log what it would hide (nothing changes); 1 = on; 0 = off.
+suppress=1
+suppress_radius_m=150
+suppress_off_m=250
+; Si el anfitrion muere y reaparece lejos, la zona se mantiene estos segundos (0 = no)
+; If the host dies and reappears far away, the zone is kept this many seconds (0 = no)
+suppress_respawn_grace_s=60
+; 1 = al salir de la zona vuelven tus enemigos / 1 = your enemies come back when you leave the zone
+suppress_restore=1
+; Segundos que se espera a que acabe una pelea con tus enemigos antes de ocultarlos
+; Seconds to wait for a fight with your enemies to end before they are hidden
+suppress_wait_fight_s=60
+; 1 = tambien eventos de nodo y de faccion / 1 = node and faction events too
+suppress_node_events=0
+
+[dev]
+; El arbol del que tira el otro jugador se dobla tambien aqui, y su cuerda llega al arbol (experimental)
+; The tree the other player pulls also bends here, and their rope reaches the tree (experimental)
+rope_bend=1
+; Cuerda en arboles: busca la pieza del arbol en este PC (experimental)
+; Rope on trees: finds the tree's piece on this PC (experimental)
+rope_piece_lookup=1
+; Solo el anfitrion envia sus enemigos / Only the host sends their enemies
+enemy_relay=0

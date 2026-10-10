@@ -1,0 +1,22 @@
+build/
+out/
+.vs/
+.vscode/
+.claude/
+*.user
+
+# Local only: save backups, a cloned reference repo (no license), downloads
+backups/
+reference/
+third_party/**/*.zip
+
+# Packages (publish the zips as GitHub releases, never in the repo)
+dist/
+*.zip
+
+# Logs, packet captures and files the mod writes next to the game
+*.log
+*.pdb
+captures/
+cdmp_packets_*
+cdmp_learnt.txt

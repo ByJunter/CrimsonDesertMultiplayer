@@ -1,0 +1,186 @@
+CRIMSON DESERT MULTIPLAYER v0.2.0 (ALFA) - COOPERATIVO PARA DOS JUGADORES
+=========================================================================
+
+Mod no oficial. No está hecho ni respaldado por Pearl Abyss. Úsalo bajo tu
+responsabilidad y haz siempre una copia de tus partidas antes.
+(English: see README.txt)
+
+
+LÉELO: ESTO ES UNA ALFA, O INCLUSO MENOS
+----------------------------------------
+Este mod es una prueba de lo que podría llegar a ser un cooperativo en
+Crimson Desert, no un modo multijugador terminado. Tiene fallos conocidos y
+cosas a medio hacer.
+
+No voy a seguir desarrollando este mod. La complejidad de este proyecto
+(ingeniería inversa del código de red del juego, mantener sincronizados dos
+mundos distintos, combate y enemigos compartidos) está muy por encima de lo
+que puedo hacer con el poquísimo tiempo libre que tengo. (Se desarrolló con
+la ayuda de Claude, una IA de Anthropic.)
+
+Además, un aviso: otra persona está trabajando en un proyecto parecido y
+pronto publicará un mod cooperativo mucho más avanzado. Así que no te
+desanimes por lo limitado que es este: ¡vienen cosas mejores!
+
+Esta versión será de código abierto: en unos días subiré todo el código a
+GitHub con licencia GPL v3, para que quien quiera pueda continuar su
+desarrollo o usarlo como base de su propio proyecto. Desármalo, arréglalo,
+construye sobre él: de eso se trata.
+
+
+QUÉ HACE
+--------
+- Cada uno juega en SU propia partida y ve al otro como un personaje más:
+  anda, corre, salta, nada, planea, sube a salientes, escala, ataca, monta a
+  caballo, se cambia el equipo y usa la cuerda mágica en los árboles (el
+  árbol se dobla también en la pantalla del otro).
+- La hora del día es la misma en los dos juegos: el invitado toma la del
+  anfitrión.
+- El otro jugador sale en el minimapa y en el mapa (M) como una flecha con
+  borde. Si está tan lejos que su personaje no está cargado en tu mundo,
+  sale un marcador de mapa en su posición.
+- ENEMIGOS COMPARTIDOS (experimental). El ANFITRIÓN manda:
+  * ZONA DE 150 m: cerca del anfitrión, el invitado deja de ver a sus propios
+    enemigos y ve copias de los enemigos del anfitrión (hasta 48 a la vez),
+    con su punto rojo en el minimapa. Lejos del anfitrión (más de 250 m)
+    vuelven los suyos.
+  * Los golpes del invitado a esas copias hieren, tambalean y matan a los
+    enemigos de verdad del anfitrión, y el invitado puede empezar la pelea.
+  * Esos enemigos también atacan al invitado: pierde vida, se tambalea y
+    puede morir (muerte normal, reaparece como siempre).
+
+LIMITACIONES CONOCIDAS
+- Solo se comparten los ENEMIGOS hostiles. Civiles, animales, guardias y
+  personajes de misión son los de cada partida: si vuestras partidas van por
+  sitios distintos de la historia, veréis gente distinta.
+- No se comparten misiones ni objetos. El botín y la experiencia de los
+  enemigos compartidos son del anfitrión. (Hay un botín para el invitado MUY
+  experimental y apagado: [coop] guest_loot=1; a veces no da nada.)
+- Los enemigos del anfitrión a menudo prefieren atacar al anfitrión antes
+  que al invitado.
+- El otro jugador se ve con un pequeño retraso (menos de un segundo). Al
+  llegar a una zona con muchos enemigos puede haber tirones unos segundos.
+- Al bajarse del caballo, el personaje del otro se recarga en 1-2 segundos.
+- Jefes, jinetes enemigos y arqueros en torres no se comparten.
+- Si el anfitrión está en un menú (o muerto, en la pantalla de reaparecer),
+  su juego está en pausa y los enemigos compartidos se quedan quietos.
+- Algunos enemigos que en la partida del anfitrión están agachados o
+  sentados se ven de pie en la del invitado.
+
+
+1. REQUISITOS (LOS DOS JUGADORES)
+---------------------------------
+- Crimson Desert para PC (Steam), versión 2.03.02 (en el menú principal,
+  arriba a la derecha: "GameVersion : 2.03.02"). Con otra versión el mod se
+  desactiva solo y el juego funciona como siempre.
+- LOS DOS CON EL MISMO ZIP. Si las versiones del mod no coinciden, sale un
+  aviso en rojo arriba a la izquierda ("Different mod versions") y no os
+  conectaréis.
+- Ser amigos en Steam.
+- COPIA DE TUS PARTIDAS antes de nada:
+    %LOCALAPPDATA%\Pearl Abyss\CD\save
+  Copia la carpeta "save" entera a otro sitio.
+- MIENTRAS EL OTRO JUGADOR ESTÉ EN TU MUNDO, NO GUARDES LA PARTIDA. Sal sin
+  guardar o espera a que se vaya.
+
+
+2. INSTALACIÓN (LOS DOS)
+------------------------
+En Steam: botón derecho en Crimson Desert > Administrar > Ver archivos
+locales > carpeta bin64 (donde está CrimsonDesert.exe). Copia ahí:
+    winmm.dll   (Ultimate ASI Loader v9.7.4: carga el mod)
+    cdmp.asi    (el mod)
+    cdmp.ini    (la configuración; la del zip es la del INVITADO)
+
+EL ANFITRIÓN: copia también cdmp.ini.anfitrion a bin64 y renómbralo a
+cdmp.ini, sustituyendo el anterior.
+
+Los dos: abrid cdmp.ini con el Bloc de notas y escribid vuestro nombre en
+player_name=
+
+
+3. CONECTAROS
+-------------
+Uno es el ANFITRIÓN y el otro el INVITADO. Tenéis que ser AMIGOS EN STEAM:
+el mod solo conecta con amigos de Steam que estén jugando a Crimson Desert.
+La conexión va por los servidores de Steam: no hay que abrir puertos, va
+cifrada y ninguno ve la IP del otro.
+
+Los dos cdmp.ini ya vienen preparados (role=host en el del anfitrión,
+role=guest en el del invitado). Abrid el juego los dos. Si el anfitrión es el
+único amigo tuyo que está jugando a Crimson Desert, el invitado lo encuentra
+solo. Si no, el invitado escribe el SteamID64 del anfitrión (17 cifras) en
+[steam] peer_steamid=
+Windows puede preguntar por el cortafuegos: permitirlo ayuda, pero funciona
+aunque lo rechacéis.
+
+Cargad vuestra partida. Al moveros, el otro jugador aparece en VUESTRO
+mundo, en la posición donde está en el suyo. Si estáis lejos no lo veréis:
+id al mismo sitio (por ejemplo, viaje rápido al mismo punto).
+
+JUGAD SOLO CON GENTE DE CONFIANZA: lo que envía el otro jugador entra en tu
+juego. Alguien con un mod modificado a propósito podría, como mínimo,
+cerrarte el juego o estropear la partida en curso.
+
+
+4. TECLAS
+---------
+  F8               muestra / oculta el panel del mod (en inglés; para
+                   verlo en español: [overlay] language=es en cdmp.ini).
+  Ctrl+F7          (SOLO EL ANFITRIÓN) activa / desactiva las copias de sus
+                   enemigos en el mundo del invitado.
+  Ctrl+Shift+F6    (solo el anfitrión) quita todas las copias de enemigos.
+  Ctrl+F12         escribe una marca numerada en cdmp.log, para señalar el
+                   momento en que pasó algo raro.
+
+
+5. SI ALGO FALLA
+----------------
+- Junto al juego se crea cdmp.log (y las 5 sesiones anteriores en
+  cdmp.1.log ... cdmp.5.log). Guárdalo y di qué viste y cuándo.
+- Para informar de un fallo con más detalle: en cdmp.ini, [sniffer]
+  record=1 graba los mensajes del juego en ficheros cdmp_packets_* (unos
+  100 MB por sesión). Vuelve a ponerlo a 0 después.
+- Si la zona de enemigos da problemas (enemigos que no aparecen o que no
+  vuelven): el invitado pone [coop] suppress=0 (y vuelve a ver solo los
+  suyos más las copias de los enemigos que luchan con el anfitrión).
+- Si los enemigos compartidos dan problemas: en cdmp.ini, [coop]
+  guest_hits=0 y enemies_target_copy=0 (y el anfitrión [dev] enemy_relay=0).
+- Si la cuerda de los árboles da problemas: [dev] rope_bend=0 y
+  rope_piece_lookup=0 en los dos.
+- Si el caballo da problemas: [coop] horse=0.
+- Si la hora del día da problemas: [coop] time_sync=0 en los dos.
+- Para desactivar el cooperativo sin desinstalar: [coop] enabled=0.
+- El mod aprende cuánto daño hacen tus ataques y los de los enemigos
+  mientras juegas (también solo) y lo guarda en cdmp_learnt.txt. Bórralo
+  para que empiece a aprender de cero.
+- Para desinstalar: borra winmm.dll, cdmp.asi, cdmp.ini y cdmp_learnt.txt
+  de bin64.
+
+
+6. PRIVACIDAD Y SEGURIDAD
+-------------------------
+- El mod no recoge ni envía datos a nadie más que al otro jugador. Los
+  registros (cdmp.log, cdmp_learnt.txt) se quedan en tu PC.
+- La conexión es solo con amigos de Steam y va por los servidores de Steam
+  (cifrada; nadie ve la IP del otro).
+- El mod no modifica ningún archivo del juego: solo se carga junto a él. Si
+  el juego se cierra por un error con el mod puesto, el informe de error del
+  propio juego se envía a Pearl Abyss como cualquier otro cierre.
+
+
+7. LICENCIA Y AVISOS LEGALES
+----------------------------
+Crimson Desert Multiplayer - Copyright (C) 2026 ByJunter
+Software libre bajo la licencia GNU GPL versión 3 (LICENSE.txt): puedes
+usarlo, estudiarlo, modificarlo y compartirlo, pero si publicas una versión
+modificada tiene que llevar también su código fuente y la misma licencia.
+Se ofrece SIN NINGUNA GARANTÍA.
+
+Licencias de terceros: ver THIRD-PARTY-NOTICES.txt (Ultimate ASI Loader,
+Dear ImGui, SafetyHook, Zydis y Zycore).
+
+Crimson Desert y Pearl Abyss son marcas de Pearl Abyss Corp. Este mod no
+está afiliado a Pearl Abyss ni respaldado por ella, y no incluye ningún
+archivo ni contenido del juego: para usarlo necesitas tu propia copia
+legal de Crimson Desert. Steam es una marca de Valve Corporation.

@@ -1,0 +1,92 @@
+CRIMSON DESERT MULTIPLAYER - KIT DE CAPTURA
+===========================================
+
+Gracias por ayudar. Este kit graba los mensajes internos que el juego
+intercambia entre su parte "cliente" y su parte "servidor" mientras juegas.
+Con esas grabaciones estamos descifrando el protocolo para hacer el
+cooperativo.
+
+Qué hace:
+- Solo LEE y COPIA esos mensajes a dos ficheros. No cambia nada del juego,
+  no dibuja nada en pantalla y no se conecta a internet.
+- Es un mod no oficial. El juego no tiene funciones online, pero úsalo bajo
+  tu responsabilidad.
+
+Privacidad: las grabaciones contienen datos de la partida (el nombre del
+personaje, posiciones, objetos, misiones). Comprobamos que NO contienen tu
+ID de Steam, ni tu usuario de Windows, ni el nombre del PC. cdmp.log sí
+incluye la ruta donde está instalado el juego.
+
+
+1. REQUISITOS
+-------------
+- Crimson Desert versión 2.03.02. En el menú principal sale arriba a la
+  derecha "GameVersion : 2.03.02". Si es otra versión, el mod se desactiva
+  solo y no graba nada: avísanos.
+- Haz una COPIA DE TUS PARTIDAS antes de nada (por si acaso). Están en:
+    %LOCALAPPDATA%\Pearl Abyss\CD\save
+  Copia esa carpeta "save" entera a otro sitio.
+
+
+2. INSTALACIÓN
+--------------
+Copia estos 3 ficheros en la carpeta bin64 del juego, junto a
+CrimsonDesert.exe:
+    winmm.dll   (Ultimate ASI Loader v9.7.4, carga el mod)
+    cdmp.asi    (el mod)
+    cdmp.ini    (configuración: solo graba)
+
+En Steam: botón derecho en el juego > Administrar > Ver archivos locales >
+entra en la carpeta bin64.
+
+IMPORTANTE: si ya existe un winmm.dll en bin64 (otro mod), NO lo
+sobrescribas: avísanos.
+
+
+3. COMPROBAR QUE FUNCIONA
+-------------------------
+Abre el juego y llega al menú principal. En bin64 deben aparecer:
+    cdmp.log
+    cdmp_packets_<fecha-hora>.log
+    cdmp_packets_<fecha-hora>.bin
+Dentro de cdmp.log debe haber una línea con "Sniffer v2: hooked".
+
+
+4. QUÉ HACER MIENTRAS JUEGAS
+----------------------------
+Lo más útil es VARIEDAD, no mucho tiempo. Haz las acciones por separado,
+con unos 5 segundos entre una y otra, y apunta más o menos qué hiciste y
+cuándo (minuto aproximado). Por ejemplo:
+  - quieto 10 segundos
+  - andar, esprintar, saltar, escalar
+  - pelear con enemigos, recibir daño, usar habilidades, morir si pasa
+  - recoger objetos, abrir el inventario, equipar algo
+  - llamar al caballo, montar, cabalgar, desmontar
+  - hablar con NPC, aceptar o avanzar una misión
+  - comerciar o comprar algo
+  - viaje rápido
+  - cualquier cosa rara o distinta que se te ocurra
+Las zonas, misiones y equipo distintos a los nuestros también ayudan mucho.
+
+Cada vez que abres el juego se crea un par de ficheros nuevo; no se borra
+nada. Una partida de 10 a 20 minutos ocupa unos 100-200 MB.
+
+
+5. CÓMO ENVIARNOS LA GRABACIÓN
+------------------------------
+1. Guarda y CIERRA el juego (si no, el último trozo puede quedar a medias).
+2. Comprime en un .zip los ficheros de bin64:
+     cdmp_packets_*.log
+     cdmp_packets_*.bin
+     cdmp.log
+   y añade tus notas de lo que hiciste.
+3. Envíalo (Google Drive, WeTransfer, etc.). Comprimido ocupa mucho menos.
+
+
+6. DESINSTALAR
+--------------
+Borra de bin64: winmm.dll, cdmp.asi, cdmp.ini, cdmp.log y los
+cdmp_packets_*. El juego queda exactamente como estaba.
+
+Si el juego se cierra solo, se queda en negro o va mal, desinstala y
+avísanos con el cdmp.log.

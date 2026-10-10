@@ -1,0 +1,109 @@
+CRIMSON DESERT MULTIPLAYER - COOPERATIVO (VERSIÓN DE PRUEBA)
+==========================================================
+
+Qué hace hoy:
+- Cada uno juega en SU propia partida y ve al otro como un personaje más:
+  anda, corre, salta, ataca, planea, sube a salientes, escala, monta a
+  caballo y se cambia el equipo.
+- El otro jugador sale en el MINIMAPA y en el MAPA (M) como una flecha con
+  borde (la tuya es la normal). Si está tan lejos que su personaje no está
+  cargado en tu mundo, sale un marcador de mapa en su posición.
+- ENEMIGOS COMPARTIDOS (experimental). El ANFITRIÓN manda:
+  * Los enemigos del anfitrión que estén luchando
+    aparecen copiados en el mundo del invitado: se mueven, atacan y mueren
+    igual que los del anfitrión.
+  * Los golpes del invitado a esas copias hieren, hacen tambalearse y matan
+    a los enemigos de verdad del anfitrión (con su botín y su experiencia,
+    para el anfitrión).
+  * Los enemigos del anfitrión también atacan al invitado: cuando le pegan,
+    el invitado pierde vida, se tambalea y puede morir.
+  * El invitado sigue viendo también los enemigos de su propia partida
+    (aún no se quitan). No le pegues a los tuyos pensando que son los del
+    anfitrión: las copias aparecen donde está el anfitrión luchando.
+- Todavía NO se comparten misiones ni objetos, y el invitado no recibe
+  botín ni experiencia de los enemigos del anfitrión.
+- Es un mod no oficial que escribe mensajes dentro del juego. Úsalo bajo tu
+  responsabilidad.
+
+
+1. REQUISITOS (LOS DOS JUGADORES)
+---------------------------------
+- Crimson Desert versión 2.03.02 (en el menú principal, arriba a la
+  derecha: "GameVersion : 2.03.02"). Con otra versión el mod se desactiva.
+- LOS DOS CON EL MISMO ZIP. Si las versiones del mod no coinciden, sale un
+  aviso en rojo en la esquina superior izquierda ("Versiones distintas del
+  mod") y no os conectaréis.
+- COPIA DE TUS PARTIDAS antes de nada:
+    %LOCALAPPDATA%\Pearl Abyss\CD\save
+  Copia la carpeta "save" entera a otro sitio.
+- MIENTRAS EL OTRO JUGADOR ESTÉ EN TU MUNDO, NO GUARDES. Aún no sabemos si
+  guardar con él cargado deja algo raro en la partida. Sal sin guardar o
+  espera a que se vaya.
+
+
+2. INSTALACIÓN (LOS DOS)
+------------------------
+Copia en la carpeta bin64 del juego (junto a CrimsonDesert.exe):
+    winmm.dll   (Ultimate ASI Loader v9.7.4, carga el mod)
+    cdmp.asi    (el mod)
+    cdmp.ini    (configuración: ya es la del INVITADO)
+En Steam: botón derecho en el juego > Administrar > Ver archivos locales >
+carpeta bin64.
+
+EL ANFITRIÓN: copia también cdmp.ini.anfitrion a bin64 y renómbralo a
+cdmp.ini (sustituyendo el anterior). El invitado no tiene que hacer nada
+más: cdmp.ini ya es una copia de cdmp.ini.invitado.
+
+Los dos: escribid vuestro nombre en cdmp.ini, en player_name=.
+
+
+3. CONECTAROS
+-------------
+Uno de los dos es el ANFITRIÓN y el otro el INVITADO. Tenéis que ser
+amigos en Steam.
+
+POR STEAM (recomendado: no hay que abrir puertos ni instalar nada más)
+  Los ficheros de configuración ya vienen preparados (role=host en el del
+  anfitrión, role=guest en el del invitado, transport=steam en los dos).
+  Abrid el juego los dos. Si el anfitrión es el único amigo tuyo que está
+  jugando a Crimson Desert, el invitado lo encuentra solo. Si no, el
+  invitado pone el SteamID64 del anfitrión en [steam] peer_steamid=
+  (sale en el cdmp.log del anfitrión: "Steam: ready as ... SteamID64 ...").
+  Windows puede preguntar por el cortafuegos para CrimsonDesert.exe:
+  permitirlo ayuda, pero funciona aunque lo rechacéis.
+
+(Por IP ya no se puede: el modo udp solo sirve para pruebas en un mismo PC con
+cdmp_peer.exe.)
+
+Luego cargad vuestra partida. Al moveros, el otro jugador aparece en
+VUESTRO mundo, en la posición donde está en el suyo. Si estáis lejos, no lo
+veréis: id al mismo sitio (por ejemplo, viaje rápido al mismo punto).
+
+(cdmp_peer.exe solo hace falta para pruebas: hace de puente entre dos
+jugadores por UDP, o te devuelve tus propios datos si estás solo.)
+
+
+4. TECLAS
+---------
+  Ctrl+F7          (SOLO EL ANFITRIÓN) activa / desactiva las copias de sus
+                   enemigos en el mundo del invitado.
+  Ctrl+Shift+F6    (solo el anfitrión) quita todas las copias de enemigos.
+  Ctrl+F12         (los dos) escribe una "marca" numerada en cdmp.log. Pulsadla
+                   a la vez cuando pase algo raro y decid el número en voz alta:
+                   así se pueden comparar los dos logs.
+  F8               muestra / oculta el panel del mod.
+
+
+5. SI ALGO FALLA
+----------------
+- Junto al juego se crea cdmp.log (y las 5 sesiones anteriores en
+  cdmp.1.log ... cdmp.5.log). Envíalos, junto con lo que viste.
+- En esta versión de prueba también se graban los mensajes del juego en
+  ficheros cdmp_packets_*.bin y .log (unos 100 MB por sesión). Envía el
+  .bin de la sesión de prueba comprimido en zip; luego puedes borrarlos.
+  Para no grabarlos: [sniffer] record=0 en cdmp.ini.
+- Si los enemigos compartidos dan problemas: en cdmp.ini, [coop]
+  guest_hits=0 y enemies_target_copy=0 (y el anfitrión [dev] enemy_relay=0).
+- Si el caballo da problemas: [coop] horse=0.
+- Para desactivar el cooperativo sin desinstalar: [coop] enabled=0.
+- Para desinstalar: borra winmm.dll, cdmp.asi y cdmp.ini de bin64.

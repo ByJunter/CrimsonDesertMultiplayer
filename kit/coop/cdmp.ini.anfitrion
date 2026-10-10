@@ -1,0 +1,84 @@
+; Crimson Desert Multiplayer - cooperativo (version de prueba) - ANFITRION
+[general]
+; Tu nombre (lo ve el otro jugador)
+player_name=Jugador
+startup_delay_ms=0
+
+[net]
+enabled=1
+; steam = por Steam, solo con amigos de Steam. udp = solo pruebas en este mismo PC (cdmp_peer)
+transport=steam
+; host = anfitrion (espera a su amigo); guest = invitado (se conecta al anfitrion)
+role=host
+; Solo UDP: IP del anfitrion (el invitado) / puerto en el que escucha el anfitrion
+peer_host=127.0.0.1
+peer_port=37015
+send_rate_hz=20
+
+[steam]
+; Invitado: SteamID64 del anfitrion (17 cifras). Vacio = el unico amigo que este
+; jugando a Crimson Desert ahora mismo.
+; Anfitrion: vacio = acepta a cualquier amigo que este jugando.
+peer_steamid=
+
+[overlay]
+; Marcador con el nombre y la vida del otro jugador sobre su cabeza
+enabled=1
+self_marker=0
+; Idioma de los textos del panel: en = ingles, es = espanol
+; Language of the panel's texts: en = English, es = Spanish
+language=es
+
+[sniffer]
+; Necesario para el cooperativo (lee y envia los mensajes internos del juego)
+enabled=1
+; 1 = ademas los graba en ficheros cdmp_packets_* (50-100 MB por sesion). Activado para la prueba:
+; enviadnos esos ficheros junto con cdmp.log
+record=1
+
+[coop]
+; 1 = el otro jugador aparece como un personaje en tu mundo
+enabled=1
+; Retardo de reproduccion en ms (mas = escaladas mas suaves, pero mas retraso)
+delay_ms=200
+; Desplazamiento lateral del otro jugador en metros (0 = posicion exacta)
+offset_m=0
+; El otro jugador se cambia el equipo como en su partida
+equip=1
+; Experimental: su caballo (monta y cabalga; al bajarse, su personaje se recarga en 1-2 s)
+horse=1
+; Dano "espejo" antiguo (golpes del otro a enemigos de su mundo -> enemigo parecido del tuyo).
+; Apagado: ahora los enemigos se comparten (ver abajo)
+damage=0
+; El otro jugador en el minimapa y el mapa (M): flecha con borde
+minimap_icon=0x124
+; Marcador en el mapa cuando su personaje no esta cargado (por ejemplo, muy lejos)
+map_pin=1
+; ENEMIGOS COMPARTIDOS (experimental). El anfitrion manda: sus enemigos aparecen copiados en el mundo
+; del invitado solos (Ctrl+F7 los quita y los vuelve a poner). Pueden atacar a la copia del invitado
+enemies_target_copy=1
+; 1 = las copias salen solas al empezar a luchar (sin pulsar Ctrl+F7)
+enemy_auto=1
+; Los golpes del invitado a esas copias hieren, tambalean y matan a tus enemigos reales
+guest_hits=1
+guest_hit_stagger=1
+; Tu personaje reacciona (tambaleo, derribo) a los golpes que los enemigos del otro dan a tu copia en su
+; mundo, y puede morir por ellos (muerte normal, reapareces como siempre)
+player_hit_react=1
+player_hit_lethal=1
+; Cuantos de tus enemigos a la vez atacan a la copia del invitado (como contigo). 0 = casi nunca le atacan
+copy_attack_slots=2
+; Hora del dia: el anfitrion envia la suya y el invitado la toma (1 = enviar la tuya)
+time_sync=1
+; ZONA DE ENEMIGOS (fase 5, en pruebas): la decide el INVITADO con su suppress=. Cuando la pide,
+; el anfitrion copia todos sus enemigos de la zona (no solo los que luchan). En el anfitrion esta
+; clave no cambia nada; necesita enemy_auto=1 y [dev] enemy_relay=1
+suppress=dry
+
+[dev]
+; El arbol del que tira el otro jugador se dobla tambien aqui (experimental)
+rope_bend=1
+; Cuerda en arboles: busca la pieza del arbol en este PC (experimental)
+rope_piece_lookup=1
+; Envia tus enemigos al invitado: Ctrl+F7 = automatico (los que luchan), Ctrl+Shift+F6 = quitar copias
+enemy_relay=1
