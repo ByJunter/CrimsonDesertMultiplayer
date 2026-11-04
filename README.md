@@ -1,5 +1,9 @@
 # Crimson Desert Multiplayer (cdmp)
 
+> **New version:** [CrimsonDesertMultiplayer-NativeServer](https://github.com/ByJunter/CrimsonDesertMultiplayer-NativeServer).
+> Instead of copying characters between two separate games, the guest joins the host's world through the
+> game's own internal server. This repository keeps the original version.
+
 Unofficial two-player co-op mod for **Crimson Desert** (PC, Steam), written from scratch in C++20.
 It loads into the game as `cdmp.asi` through Ultimate ASI Loader.
 
